@@ -24,12 +24,14 @@ img {
 </div>
 
 <script>
-
+for (let i = 0; i < 161; i++) { 
+ fetch("./images/image-sequence/"+i.toString().padStart(4, '0')+".png");
+}
 var i = 1;
 var played = false;
 function logo() {
 if (played == true) {
-    document.body.style.background = "url('https://raw.githubusercontent.com/Awesomefied/awesomefied.github.io/main/images/bg.png') no-repeat center fixed";
+    document.body.style.background = "url('./images/bg.png') no-repeat center fixed";
     document.body.style.backgroundSize = "cover";
 }
 const logoanimation = setInterval(animation, 24)
@@ -39,7 +41,7 @@ function animation() {
         played = true;
         return;
     }
-    document.getElementById("logo").src = "https://raw.githubusercontent.com/Awesomefied/awesomefied.github.io/main/images/image-sequence/"+i.toString().padStart(4, '0')+".png";
+    document.getElementById("logo").src = "./images/image-sequence/"+i.toString().padStart(4, '0')+".png";
     i++
 }
 }
