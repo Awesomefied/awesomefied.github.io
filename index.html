@@ -17,34 +17,58 @@ img {
     -ms-transform: translate(-50%, -50%); /* IE 9 */
     -webkit-transform: translate(-50%, -50%); /* Chrome, Safari, Opera */
 }
+video {
+    width: 100vw;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%); /* IE 9 */
+    -webkit-transform: translate(-50%, -50%); /* Chrome, Safari, Opera */
+}
 </style>
 
 <div>
-<img src="./images/logo.png" onclick="logo()" id="logo" alt="Awesomefied!!!"> 
+<img src="./bg.png" id="capy" style="width:auto;height:400px;visibility:hidden;" alt="capybara!!!">
+<video id="wall" style="height:100vh;width:auto;visibility:hidden;" alt="Wall">
+    <source src="./wall.webm" >
+</video>
+<video onclick="logo()" id="logo" alt="Awesomefied!!!">
+    <source src="./awesomefied.webm" >
+</video>
 </div>
 
 <script>
-for (let i = 1; i < 161; i++) { 
- fetch("./images/image-sequence/"+i.toString().padStart(4, '0')+".png");
-}
+
 var i = 1;
 var played = false;
 function logo() {
-if (played == true) {
-    document.body.style.background = "url('./images/bg.png') no-repeat center fixed";
-    document.body.style.backgroundSize = "cover";
-}
-const logoanimation = setInterval(animation, 24)
-function animation() {
-    if (i == 161) {
-        clearInterval(logoanimation);
+    if (played == true) {
+        //document.body.style.background = "url('./images/bg.png') no-repeat center fixed";
+        //document.body.style.backgroundSize = "cover";
+        document.getElementById("wall").style.visibility = "visible";
+        document.getElementById("capy").style.visibility = "visible";
+        document.getElementById("wall").play();
+        played = "maybe";
+    } else if (played == false) {
+        document.getElementById("logo").play();
         played = true;
-        return;
     }
-    document.getElementById("logo").src = "./images/image-sequence/"+i.toString().padStart(4, '0')+".png";
-    i++
 }
+var i = document.getElementById("logo").offsetWidth/5;                  
+function myLoop() {         
+  setTimeout(function() {   
+    document.getElementById("logo").style.width = i*5+"px";  
+    i--;                    
+    if (i > 0) {          
+      myLoop();             
+    }                       
+  }, 1)
 }
+document.getElementById('wall').addEventListener('ended',myHandler,false);
+    function myHandler(e) {
+        myLoop(); 
+    }
 var nerdemoji = "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣤⣤⣶⡾⠿⠛⠛⠛⠋⠉⠉⠙⠛⠛⠛⠻⠷⣶⣤⣤⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣤⣶⣿⣿⣿⣿⣿⣷⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣾⣿⣿⣿⣿⣿⣶⣤⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣠⣤⣶⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣦⣄⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⡀\n⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿\n⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿\n⠀⠈⢻⣿⣿⣿⣿⡋⠉⠉⠉⢉⣉⠉⠉⠉⣉⣩⣭⣭⣍⣉⠉⠉⠉⠉⠉⠉⠉⠉⢻⣿⣿⣿⣿⣿⣿⠛⠛⠋⠉⠉⢙⣛⠛⣉⣩⣭⣭⣭⣉⡉⠉⠉⠉⠉⠉⠉⠉⠛⣿⣿⣿⣿⣿⠋⠀\n⠀⠀⠸⣿⣿⣿⣿⡇⠀⢀⣴⠟⠛⢿⣶⣿⡟⠉⠉⠉⠉⣿⣿⣦⡀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⣿⡀⠀⠀⢀⣶⠿⣻⣿⣟⣿⣏⠀⠉⠙⠻⣷⣄⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⡿⠀⠀\n⠀⠀⠀⣿⣿⣿⣿⣷⠀⢸⡏⠀⢰⣾⡇⠘⣿⠀⠀⠀⣴⣿⡇⠙⣿⡄⠀⠀⠀⣸⣿⣿⣿⣿⣿⣿⣿⣧⠀⠀⢸⡏⣾⠟⢹⣿⢿⣿⣇⠀⠀⠀⠈⢻⣧⠀⠀⠀⠀⢰⣿⣿⣿⣿⡇⠀⠀\n⠀⠀⠀⢸⣿⣿⣿⣿⡀⠸⣷⣀⣿⣿⠃⣸⡿⠀⣠⣾⣿⣿⡇⠀⢹⡇⠀⠀⢀⣿⣿⣿⣿⣿⣿⣿⣿⣿⡄⠀⠸⣿⣟⣴⣿⠃⢸⣿⣿⡄⠀⠀⠀⠀⣿⠀⠀⠀⠀⣼⣿⣿⣿⣿⠀⠀⠀\n⠀⠀⠀⠸⣿⣿⣿⣿⣇⠀⠈⠉⢿⣷⠾⠟⢁⣾⣿⣿⣿⣿⣧⣀⣼⡷⠀⠀⣸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⠀⠀⠹⣿⣿⣵⣶⣿⣿⣿⣧⠀⠀⠀⢠⣿⠀⠀⠀⢀⣿⣿⣿⣿⡿⠀⠀⠀\n⠀⠀⠀⠀⢿⣿⣿⣿⣿⡄⠀⠀⠈⢿⣦⣴⣿⣿⣿⣿⣿⣿⣿⣿⡟⠀⠀⢠⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡄⠀⢤⡿⣿⣿⣿⣿⣿⣿⣿⡄⢀⣠⣿⠋⠀⠀⠀⣼⣿⣿⣿⣿⡇⠀⠀⠀\n⠀⠀⠀⠀⠘⣿⣿⣿⣿⣿⣦⡀⠀⠀⠙⠿⣿⣿⣿⣿⣿⣿⠟⠋⠀⠀⣠⣿⣿⣿⣿⣿⠟⠛⠻⣿⣿⣿⣿⣿⣦⡈⠁⠈⠻⣿⣿⣿⣿⣿⣿⠿⠛⠁⠀⠀⣠⣾⣿⣿⣿⣿⠏⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠘⢿⣿⣿⣿⣿⣿⣷⣦⣤⣄⣀⣈⣉⣉⣁⣀⣀⣤⣴⣿⣿⣿⣿⣿⣿⠋⠀⠀⠀⠙⢿⣿⣿⣿⣿⣿⣶⣤⣄⣀⣉⣉⣉⣉⣀⣀⣤⣤⣶⣿⣿⣿⣿⣿⣿⠏⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⢸⣿⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⠁⠀⠀⠀⠀⠀⠈⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟⠃⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⢸⣿⡇⠈⠙⠿⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠿⠿⠛⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠛⠿⠿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠿⠛⠋⢹⣿⠇⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠈⣿⣇⠀⠀⠀⣿⣷⠀⠀⠀⠀⢠⣤⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⣿⡆⠀⠀⠀⠀⣾⣿⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⢹⣿⡀⠀⠀⠈⠉⠀⠀⠀⠀⠸⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⣿⣿⠀⠀⠻⠿⠃⠀⠀⠀⢰⣿⠇⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠈⣿⣧⠀⠀⠀⣴⣦⠀⠀⠀⠀⠀⠀⠀⠀⠀⣤⣶⣶⡶⠀⠀⠀⠀⠀⠀⠀⠀⠀⠰⢶⣶⣶⣦⡀⠀⠀⠘⠛⠋⠀⠀⠀⠀⠀⠀⠀⢀⣿⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠘⣿⣧⠀⠀⠻⠿⠀⠀⠀⠀⠀⠀⠀⠀⢰⣿⣿⣿⣇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣾⣿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⣿⣧⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠻⢿⣿⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⠿⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣾⡿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⢿⣷⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⢷⣶⣤⣤⣤⣤⣤⣤⣤⣶⡿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣿⡿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠻⣿⣦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⠉⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣾⣿⠏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠻⣿⣦⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣼⣿⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠻⣿⣷⣤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣴⣾⡿⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠻⣿⣷⣦⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣤⣴⣾⡿⠟⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠛⣿⣿⣿⣶⣶⣤⣤⠀⠀⠀⠀⠀⠀⣤⣤⣶⣶⣿⣿⣿⠛⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"
 console.log("Hewwo :3\n"+nerdemoji);
 </script>
